@@ -2,6 +2,14 @@
 
 ![Containers](docker-intro-image.jpg)
 
+## Prerequisites
+
+To comfortably follow this workshop, we strongly suggest installing a virtualized environment with a Linux operating system inside. Here is a list of required software:
+
+* [VirtualBox](https://www.virtualbox.org/) virtualization product
+* [Ubuntu](https://ubuntu.com/) Linux
+* VirtualBox [guest additions](https://linuxconfig.org/virtualbox-install-guest-additions-on-ubuntu-22-04-lts-jammy-jellyfish)
+
 ## Agenda
 
 * [Intro to Containers](01_Intro_to_Containers)
