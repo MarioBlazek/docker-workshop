@@ -4,7 +4,7 @@
 
 ## Agenda
 
-* Intro to Containers
+* [Intro to Containers](01_Intro_to_Containers)
 * The Linux Command Line
 * Building images
 * Working with Containers
