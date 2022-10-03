@@ -10,6 +10,13 @@ To comfortably follow this workshop, we strongly suggest installing a virtualize
 * [Ubuntu](https://ubuntu.com/) Linux
 * VirtualBox [guest additions](https://linuxconfig.org/virtualbox-install-guest-additions-on-ubuntu-22-04-lts-jammy-jellyfish)
 
+There is a slight chance that VirtualBox won't enable the virtualization support. Because of that, the Docker engine installed inside Ubuntu VM won't be able to start. To mitigate this, run the following command:
+
+```bash
+vboxmanage modifyvm VM_NAME --nested-hw-virt on
+```
+
+
 ## Agenda
 
 * [Intro to Containers](01_Intro_to_Containers)
