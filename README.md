@@ -1,6 +1,6 @@
-# Docker Workshop
+[Containers](docker-intro-image.jpg)
 
-![Containers](docker-intro-image.jpg)
+# Docker Workshop
 
 ## Agenda
 
