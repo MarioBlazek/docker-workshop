@@ -14,7 +14,8 @@ First, install the NVM:
 
 ```bash
 wget https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh
-bash install
+chmod +x install.sh
+bash install.sh
 source ~/.bashrc
 ```
 
@@ -91,13 +92,95 @@ We can check on Node Docker Hub [page](https://hub.docker.com/_/node) to find ve
 
 ### Building image
 
+To build the image, from the current Docker context, run the following:
+
+```bash
+docker build -t YOUR_IMAGE_NAME .
+```
+
+After the successful build, inspect your image list:
+
+```bash
+docker images ls
+```
+
+or simply:
+
+```bash
+docker images
+```
+
+It is always good thing to inspect the layers of a Docker image, it can be done by running the `history` command:
+
+```bash
+docker history YOUR_IMAGE_NAME
+```
+
 ### Starting container
+
+To the container from previously built images, run:
+
+```bash
+docker run -it -p 3000:3000 YOUR_IMAGE_NAME
+```
+
+Open the [http://0.0.0.0:3000](http://0.0.0.0:3000) URL in your browser and you should be able to see React logo.
+
+You can enter directly to a shell session:
+
+```bash
+docker run -it YOUR_IMAGE_NAME sh
+```
+
+Notice the `sh` as the shell identifier. This is because we are using the Alping Linux which promotes minimalism and doesn't have `bash` installed by default.
+
+And finally to see which containers are running on your system, run:
+
+```bash
+docker ps
+```
 
 ### Tagging images
 
+There two ways to tag the image. First, we can do it while building an image:
+
+```bash
+docker build -t YOUR_IMAGE_NAME:VERSION .
+```
+
+Or anytime afer by running: 
+
+```bash
+docker image tag YOUR_IMAGE_NAME YOUR_IMAGE_NAME:VERSION
+```
+
 ### Removing images
 
+List images:
+
+```bash
 docker images
+```
+
+Remove all stopped containers:
+
+```bash
+docker container prune
+```
+
+Remove all dangling images:
+
+```bash
+docker image prune
+```
+
+Remove specific image:
+
+```bash
+docker image rm YOUR_IMAGE_NAME
+```
+
+You can also remove image by the image id (long hash string), just replace `YOUR_IMAGE_NAME` with id in the previous command.
 
 Clear build cache:
 
