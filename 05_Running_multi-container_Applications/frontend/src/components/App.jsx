@@ -20,7 +20,7 @@ function App() {
 
     const handleAddMovie = async (title) => {
         try {
-            const movie = { _id: Date.now(), title };
+            const movie = { id: Date.now(), title };
             setMovies([...movies, movie]);
 
             const { data: savedMovie } = await api.create(moviesEndpoint, movie);
@@ -36,15 +36,13 @@ function App() {
     const handleDeleteMovie = async (movie) => {
         try {
             setMovies(movies.filter((m) => m !== movie));
-            await api.remove(moviesEndpoint + "/" + movie._id);
+            await api.remove(moviesEndpoint + "/" + movie.id);
         } catch (error) {
             setError("Could not delete the movie!");
             setMovies(movies);
         }
     };
 
-    // useEffect(() => fetchMovies(), []);
-    //
     useEffect(() => {
         fetchMovies().catch(console.error);
     }, []);

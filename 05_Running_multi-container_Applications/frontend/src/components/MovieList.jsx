@@ -7,7 +7,7 @@ function MovieList({ movies, onDeleteMovie }) {
         <ul className="MovieList">
             {movies.map((movie) => (
                 <MovieListItem
-                    key={movie._id}
+                    key={movie.id}
                     movie={movie}
                     onDeleteMovie={() => onDeleteMovie(movie)}
                 />
