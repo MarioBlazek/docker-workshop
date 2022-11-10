@@ -13,4 +13,5 @@ bin/console doctrine:migrations:migrate --no-interaction
 bin/console doctrine:fixtures:load --no-interaction
 
 # Start Symfony CLI webserver
-symfony server:start --port=3001
+symfony server:ca:install
+symfony server:start --port=3001 --allow-http

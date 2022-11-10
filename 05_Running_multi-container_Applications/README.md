@@ -1,6 +1,6 @@
 # Running multi-container Applications
 
-In this part we are going to use the Docker Compose. It comes preinstalled with Docker Desktop. If for any reason you don't have it installed, please go to the Docker Compose install [page](https://docs.docker.com/compose/install/). To confim that every is installed properly, run this command:
+In this part we are going to use the Docker Compose. It comes preinstalled with Docker Desktop. If for any reason you don't have it installed, please go to the Docker Compose install [page](https://docs.docker.com/compose/install/). To confirm that everything is installed properly, run this command:
 
 ```bash
 docker-compose -v
@@ -10,10 +10,10 @@ It should output the version of currently installed Docker Compose.
 
 ## Intro
 
-Our task is to create a Dockerized environment for project that consists of three components:
-- frontend
-- backend
-- database
+Our task is to create a Dockerized environment for a project that consists of three components:
+- frontend - React app
+- backend - Symfony app
+- database - MySQL
 
 ### Cleaning up our workspace
 
@@ -53,7 +53,6 @@ The same principle we apply when removing containers:
 ```bash
 docker container -rm -f $(docker container ls -a -q)
 ```
-
 
 ### Running app without Dockerized environment
 
@@ -99,13 +98,18 @@ Start web server:
 npm start
 ```
 
-#### Enter `docker-compose.yaml` file
+### Enter `docker-compose.yaml` file
 
 The Compose file is a YAML file defining services, networks, and volumes for a Docker application. The latest and recommended version of the Compose file format is defined by the [Compose Specification](https://docs.docker.com/compose/compose-file/).
 
-Versioning
-
-https://docs.docker.com/compose/compose-file/compose-versioning/
+The Compose file consists of six top-level elements:
+- [version](https://docs.docker.com/compose/compose-file/#version-top-level-element)
+- [name](https://docs.docker.com/compose/compose-file/#name-top-level-element)
+- [services](https://docs.docker.com/compose/compose-file/#services-top-level-element)
+- [networks](https://docs.docker.com/compose/compose-file/#networks-top-level-element)
+- [volumes](https://docs.docker.com/compose/compose-file/#volumes-top-level-element)
+- [configs](https://docs.docker.com/compose/compose-file/#configs-top-level-element)
+- [secrets](https://docs.docker.com/compose/compose-file/#secrets-top-level-element)
 
 Environment variables
 
@@ -114,14 +118,19 @@ https://docs.docker.com/compose/environment-variables/
 
 ### Building images
 
+When we are done with the `docker-compose.yml` file, it is time for building containers:
 
 ```bash
 docker-compose build
 ```
 
+Or to force Docker to ignore any cached layers:
+
 ```bash
 docker-compose build --no-cache
 ```
+
+To inspect the final results see the images:
 
 ```bash
 docker images
@@ -129,18 +138,31 @@ docker images
 
 ### Starting and Stopping the Application
 
+To start containers specified in the `docker-compose.yml`, run the following:
+
 ```bash
 docker-compose up
 ```
+
+Or to do the same, but in the daemon mode:
 
 ```bash
 docker-compose up -d
 ```
 
+Let's inspect running containers:
+
 ```bash
 docker-compose ps
 ```
 
+To stop containers use the `stop` command:
+
+```bash
+docker-compose stop
+```
+
+Or to stop and remove containers use the `down` command:
 
 ```bash
 docker-compose down
@@ -148,9 +170,13 @@ docker-compose down
 
 ### Docker Networking
 
+Inspect networking setup:
+
 ```bash
 docker network ls
 ```
+
+Enter container as `root`:
 
 ```bash
 docker exec -it -u root CONTAINER_ID sh
@@ -158,22 +184,16 @@ docker exec -it -u root CONTAINER_ID sh
 
 And then use the ping utility to ping the backend container.
 
-ifconfig
-
 ### Viewing Logs
+
+This simple command can help us retrieving the container logs when running in daemon mode:
 
 ```bash
 docker-compose logs
 ```
 
-```bash
-docker-compose logs --help
-```
+For more options you can check help page:
 
 ```bash
 docker-compose logs --help
 ```
-
-### Migrating the Database
-
-### Running Tests

@@ -6,4 +6,5 @@ bin/console doctrine:migrations:migrate
 
 bin/console doctrine:fixtures:load
 
+symfony server:ca:install
 symfony serve --port=3001

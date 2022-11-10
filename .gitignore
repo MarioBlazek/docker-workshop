@@ -3,3 +3,4 @@ vendor
 .env.dev
 .env.prod
 .env.test
+.env.local
