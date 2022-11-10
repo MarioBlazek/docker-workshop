@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+    frontend:
+        build: ./frontend
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./frontend:/app
+            - /app/node_modules/
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        ports:
+            - "3001:3001"
+        volumes:
+            - ./backend:/app
+            - /app/vendor/
+        command: ./docker-entrypoint.sh
+    db:
+        image: mysql:latest
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-kiflica}
+        volumes:
+            - docker-workshop-app:/data/db
+volumes:
+    docker-workshop-app:

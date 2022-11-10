@@ -1,19 +1,18 @@
 FROM node:18.10-alpine3.16
 
+RUN addgroup quser && adduser -S -G quser quser
+
 WORKDIR /app
 
-RUN npm install -g serve
-
-COPY package*.json .
+COPY package*.json ./
 RUN npm install
 
 COPY . .
 
-RUN npm run build
-
+RUN chown -R quser:quser /app
+USER quser
 ENV API_URL=http://api.myapp.com
 
 EXPOSE 3000
 
-
-CMD ["serve", "-s", "build"]
+CMD ["npm", "start"]
