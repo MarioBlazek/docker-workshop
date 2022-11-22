@@ -4,15 +4,14 @@ WORKDIR /app
 
 RUN npm install -g serve
 
-COPY package*.json .
+COPY package*.json ./
 RUN npm install
 
 COPY . .
 
 RUN npm run build
 
-ENV API_URL=http://api.myapp.com
 
-EXPOSE 3000
+EXPOSE 80
 
-CMD ["serve", "-s", "build"]
+CMD ["serve", "-p", "80", "-s", "build"]

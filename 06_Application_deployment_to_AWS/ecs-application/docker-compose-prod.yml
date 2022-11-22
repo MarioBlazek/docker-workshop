@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+    frontend:
+        image: ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-frontend
+        ports:
+            - "80:80"
+    backend:
+        image: ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-backend
+        ports:
+            - "81:81"
