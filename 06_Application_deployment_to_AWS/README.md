@@ -1,19 +1,23 @@
 # Application deployment to AWS
 
-### Prerequisites
+## Prerequisites
 
-#### AWS Command Line Interface
+### The AWS account
+
+Go to the AWS and create your [account](https://aws.amazon.com/console/) there. Please be advised, running this exercise may incur some costs on your credit card.
+
+### AWS Command Line Interface
 
 The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts.
 
 Check [this](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) guide for install instructions, and [this](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config) one for configuring it.
 
-#### Docker Compose CLI
+### Docker Compose CLI
 
 This Compose CLI tool makes it easy to run Docker containers and Docker Compose applications in the cloud using either. Please follow the install [instructions](https://github.com/docker/compose-cli/blob/main/INSTALL.md) for setting it up.
 
 
-### Building the cloud environment
+## Building the cloud environment
 
 Create a new Docker context that is of type `ecs`:
 
