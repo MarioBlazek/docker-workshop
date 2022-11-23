@@ -41,6 +41,8 @@ And finally, switch to the new Docker Context:
 docker context use docker-workshop-ecs
 ```
 
+Login to the ECR from the local Docker daemon:
+
 > Replace the AWS_ACCOUNT_ID with your AWS account ID
 
 ```shell
