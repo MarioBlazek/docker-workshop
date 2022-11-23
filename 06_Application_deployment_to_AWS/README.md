@@ -59,6 +59,7 @@ aws ecr create-repository --repository-name docker-workshop-backend --image-scan
 Build Docker images:
 
 ```shell
+docker context use default
 docker-compose -f docker-compose-dev.yml build
 ```
 
@@ -75,6 +76,28 @@ And finally push images to the AWS ECR:
 docker push AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-backend
 docker push AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-frontend
 ```
+
+From this point we are ready to launch our application. Let's switch the context and fire up the `Docker Compose`:
+
+> We are using the prod version of docker-compose file here
+
+```shell
+docker context use docker-workshop-ecs
+docker compose -f docker-compose-prod.yml up
+```
+
+That's it. Login to the AWS account, search for `EC2`, and from the left menu select the `Load Balancers` section. There should be your newly created load balancer and its public URL, something like this http://ecs-a-loadb-91sn7c43pqld-7f66682b4a2bbbd3.elb.us-east-1.amazonaws.com. And Voila!
+
+In case when you need to deploy newly create changes to the AWS, repeat the process and the Fargate will do a Rolling update of your app.
+
+To shutdown everything just run the `down` command:
+
+```shell
+docker context use docker-workshop-ecs
+docker compose -f docker-compose-prod.yml down
+```
+
+## Cleanup
 
 To remove the ECR repository with all published images:
 
