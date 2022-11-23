@@ -1,5 +1,7 @@
 # Application deployment to AWS
 
+Welcome to Docker Workshop, part 6. This exercise aims to deploy the containers we created in part 5 to the AWS Cloud.
+
 ## Prerequisites
 
 ### The AWS account
