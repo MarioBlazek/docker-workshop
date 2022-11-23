@@ -19,6 +19,8 @@ This Compose CLI tool makes it easy to run Docker containers and Docker Compose 
 
 ## Building the cloud environment
 
+> The example assumes the us-east-1 AWS Region.
+
 Create a new Docker context that is of type `ecs`:
 
 ```bash
@@ -50,36 +52,31 @@ aws ecr create-repository --repository-name docker-workshop-frontend --image-sca
 aws ecr create-repository --repository-name docker-workshop-backend --image-scanning-configuration scanOnPush=false --region us-east-1
 ```
 
-Build Docker images
+Build Docker images:
 
 ```bash
 docker-compose -f docker-compose-dev.yml build
 ```
 
-Let's apply proper tag to our images
+Let's apply proper tag to our images:
 
 ```bash
 docker tag ecs-application_backend:latest AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-backend
 docker tag ecs-application_frontend:latest AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-frontend
 ```
 
-And finally push images to AWS ECR:
+And finally push images to the AWS ECR:
 
 ```bash
 docker push AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-backend
 docker push AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-frontend
 ```
 
-docker push AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop
+To remove the ECR repository with all published images:
 
-
-image: AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-frontend
-
-
-
-Removing repository:
-
+```bash
 aws ecr delete-repository --repository-name docker-workshop --force --region us-east-1
+```
 
 In case if something goes wrong, use this command as the safeguard (it will remove all AWS resources):
 
