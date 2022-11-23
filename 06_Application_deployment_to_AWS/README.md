@@ -1,22 +1,43 @@
 # Application deployment to AWS
 
-WIP.
+### Prerequisites
 
-https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+#### AWS Command Line Interface
 
-https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config
+The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts.
+
+Check [this](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) guide for install instructions, and [this](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config) one for configuring it.
+
+#### Docker Compose CLI
+
+This Compose CLI tool makes it easy to run Docker containers and Docker Compose applications in the cloud using either. Please follow the install [instructions](https://github.com/docker/compose-cli/blob/main/INSTALL.md) for setting it up.
 
 
-https://github.com/docker/compose-cli/blob/main/INSTALL.md
+### Building the cloud environment
 
+Create a new Docker context that is of type `ecs`:
 
+```bash
 docker context create ecs docker-workshop-ecs
+```
 
+More info about Docker Context can be found [here](https://docs.docker.com/engine/context/working-with-contexts/).
+
+To confirm that we have successfully create our custom Docker Context, run the following command:
+
+```bash
 docker context ls
+```
 
+And finally, switch to the new Docker Context:
+
+```bash
 docker context use docker-workshop-ecs
+```
 
+```bash
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com
+```
 
 Create repositories that will hold our images:
 
@@ -56,5 +77,8 @@ Removing repository:
 
 aws ecr delete-repository --repository-name docker-workshop --force --region us-east-1
 
+In case if something goes wrong, use this command as the safeguard (it will remove all AWS resources):
 
+```bash
 aws cloudformation delete-stack --stack-name ecs-application --retain-resources DefaultNetwork
+```
