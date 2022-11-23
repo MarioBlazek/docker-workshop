@@ -23,7 +23,7 @@ This Compose CLI tool makes it easy to run Docker containers and Docker Compose 
 
 Create a new Docker context that is of type `ecs`:
 
-```bash
+```shell
 docker context create ecs docker-workshop-ecs
 ```
 
@@ -31,57 +31,57 @@ More info about Docker Context can be found [here](https://docs.docker.com/engin
 
 To confirm that we have successfully create our custom Docker Context, run the following command:
 
-```bash
+```shell
 docker context ls
 ```
 
 And finally, switch to the new Docker Context:
 
-```bash
+```shell
 docker context use docker-workshop-ecs
 ```
 
 > Replace the AWS_ACCOUNT_ID with your AWS account ID
 
-```bash
+```shell
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com
 ```
 
 Create repositories that will hold our images:
 
-```bash
+```shell
 aws ecr create-repository --repository-name docker-workshop-frontend --image-scanning-configuration scanOnPush=false --region us-east-1
 aws ecr create-repository --repository-name docker-workshop-backend --image-scanning-configuration scanOnPush=false --region us-east-1
 ```
 
 Build Docker images:
 
-```bash
+```shell
 docker-compose -f docker-compose-dev.yml build
 ```
 
 Let's apply proper tag to our images:
 
-```bash
+```shell
 docker tag ecs-application_backend:latest AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-backend
 docker tag ecs-application_frontend:latest AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-frontend
 ```
 
 And finally push images to the AWS ECR:
 
-```bash
+```shell
 docker push AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-backend
 docker push AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/docker-workshop-frontend
 ```
 
 To remove the ECR repository with all published images:
 
-```bash
+```shell
 aws ecr delete-repository --repository-name docker-workshop --force --region us-east-1
 ```
 
 In case if something goes wrong, use this command as the safeguard (it will remove all AWS resources):
 
-```bash
+```shell
 aws cloudformation delete-stack --stack-name ecs-application --retain-resources DefaultNetwork
 ```
